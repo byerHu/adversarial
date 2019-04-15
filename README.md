@@ -6,3 +6,10 @@
 - python
 - flask
 - docker
+
+## 前端
+模板存放 /templates/home <br>
+静态文件存放 /static
+## 后台
+模板存放 /templates/admin <br>
+静态文件存放 /static
