@@ -13,3 +13,7 @@
 ## 后台
 模板存放 /templates/admin <br>
 静态文件存放 /static
+
+## 模型
+模型存放 /models
+
