@@ -1,0 +1,94 @@
+{% extends "home/nav.html" %}
+{% block content %}
+<!-- Home -->
+<div class="container" style="margin-top:150px;">
+
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h3 style="color:#000;">人脸识别</h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">原图片</div>
+        <div class="col-md-4">识别效果</div>
+        <div class="col-md-4">攻击效果</div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="imageBox" style="width:300px;height:300px;border:1px solid #ccc;">
+                {% if img_url %}
+                <img src="{{img_url}}" width="300" height="300"/>
+                {% endif %}
+            </div>
+            <form method="post" action="{{ url_for('upload') }}" enctype="multipart/form-data">
+                <div class="file-container"
+                     style="display:inline-block;position:relative;overflow: hidden;vertical-align:middle; margin-top:20px;">
+                    <button class="btn btn-info fileinput-button" type="button">选择图片</button>
+                    <input type="file" name="photo" id="jobData" onchange="loadFile(this.files[0])"
+                           style="position:absolute;top:0;left:0;font-size:34px; opacity:0">
+
+
+                </div>
+                <button class="btn btn-info" type="submit" style="margin-top:20px;">上传</button>
+                {% if not img_url %}
+                <span class="show_filename" style="display:block;width:300px;height:300px;margin-top:20px;">未上传文件</span>
+                {% elif img_url %}
+                <span class="show_filename" style="display:block;width:300px;height:300px;margin-top:20px;">{{ img_url.split('/')[-1] }}</span>
+                {% endif%}
+            </form>
+        </div>
+
+        <script>
+            <!--提示上传成功并在页面展示图片-->
+            function loadFile(file){
+                $(".show_filename").html(file.name);
+            }
+
+
+
+        </script>
+
+        <!--识别效果-->
+        <div class="col-md-4">
+            <div class="imageBox" style="width:300px;height:300px;border:1px solid #ccc;">
+                {% if recognition_img_url %}
+                <img src="{{recognition_img_url}}" width="300" height="300"/>
+                {% endif %}
+            </div>
+
+            <button class="btn btn-info catRecognitionResult" style="margin-top:20px;">查看识别结果</button>
+            <span id="recognition_result" style="display:block;width:300px;height:300px;margin-top:20px;">未上传文件</span>
+
+        </div>
+        <div class="col-md-4">
+            <div class="imageBox" style="width:300px;height:300px;border:1px solid #ccc;">
+                {% if attack_img_url %}
+                <img src="{{attack_img_url}}" width="300" height="300"/>
+                {% endif %}
+            </div>
+            <button class="btn btn-info" style="margin-top:20px;">查看攻击结果</button>
+            <span id="attack_result" style="display:block;width:300px;height:300px;margin-top:20px;">未上传文件</span>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script>
+    $('.catRecognitionResult').click(function(){
+        var filename = $(".show_filename").html();
+        data = {"filename":filename}
+        $.ajax({
+            type:'GET',
+            url: "{{url_for('recognition')}}",
+            data: data,
+            dataType:'json',
+            success:function(data){
+                console.log(data)
+            }
+        });
+    });
+</script>
+{% endblock %}
