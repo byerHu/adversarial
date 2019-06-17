@@ -4,7 +4,7 @@
     <div class="home_slider_container">
         <!-- Home Slider -->
         <div class="owl-carousel owl-theme home_slider">
-            <form class="form-horizontal" action="{{ url_for('login') }}" method="post">
+            <form class="form-horizontal" action="{{ url_for('home.login') }}" method="post">
                 <div class="form-group">
                     <div class="box-body">
                         {% for msg in get_flashed_messages(category_filter=["ok"]) %}

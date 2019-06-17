@@ -18,3 +18,4 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)  # 编号
     username = db.Column(db.String(100), unique=True)  # 昵称
     pwd = db.Column(db.String(100))  # 密码
+
