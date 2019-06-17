@@ -1,0 +1,69 @@
+{% extends "home/nav.html" %}
+{% block content %}
+<div class="home">
+    <div class="home_slider_container">
+        <!-- Home Slider -->
+        <div class="owl-carousel owl-theme home_slider">
+            <form class="form-horizontal" action="{{ url_for('login') }}" method="post">
+                <div class="form-group">
+                    <div class="box-body">
+                        {% for msg in get_flashed_messages(category_filter=["ok"]) %}
+                        <div class="alert alert-success alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
+                            <h4><i class="icon fa fa-check"></i>注册成功，请登录!</h4>
+                            {{ msg }}
+                        </div>
+                        {% endfor %}
+                        {% for msg in get_flashed_messages(category_filter=["err1"]) %}
+                        <div class="alert alert-danger alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
+                            <h4><i class="icon fa fa-check"></i>用户不存在!</h4>
+                            {{ msg }}
+                        </div>
+                        {% endfor %}
+                        {% for msg in get_flashed_messages(category_filter=["err2"]) %}
+                        <div class="alert alert-danger alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
+                            <h4><i class="icon fa fa-check"></i>密码错误!</h4>
+                            {{ msg }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">账号</label>
+                    <div class="col-sm-10">
+                        {# <input type="text" class="form-control" id="inputEmail3" placeholder="username">#}
+                        {{ form.username }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-2 control-label">密码</label>
+                    <div class="col-sm-10">
+                        {# <input type="password" class="form-control" id="inputPassword3" placeholder="Password">#}
+                        {{ form.pwd }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"> Remember me
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        {#
+                        <button type="submit" class="btn btn-default">登录</button>
+                        #}
+                        {{ form.submit }}
+                        {{ form.csrf_token }}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

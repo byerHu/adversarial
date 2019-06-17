@@ -86,5 +86,10 @@ def recognition():
 
     return render_template('home/cv.html')
 
+# 图像
+@app.route('/login')
+def login():
+    return render_template("home/login.html")
+
 if __name__ == "__main__":
     app.run(debug=True)
